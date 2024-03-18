@@ -78,11 +78,7 @@ resource "aws_launch_template" "my_launch_template" {
   name_prefix   = "my-launch-template"
   image_id      = "ami-02d7fd1c2af6eead0" # Specify your AMI ID
   instance_type = "t2.micro" # Specify your instance type
-  user_data = <<-EOF
-    #!/bin/bash
-    echo "WORDPRESS_DB_HOST=writer.yourdomain.com" >> /etc/environment
-    # Add other necessary environment variables
-    EOF
+  user_data = file("user-data.sh")
 }
 
 resource "aws_autoscaling_group" "my_asg" {
